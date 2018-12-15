@@ -1,0 +1,2 @@
+1. 获取当前账币资产
+    https://api.eospark.com/api?module=account&action=get_token_list&apikey=a9564ebc3289b7a14551baf8ad5ec60a&account=liantongtt21
