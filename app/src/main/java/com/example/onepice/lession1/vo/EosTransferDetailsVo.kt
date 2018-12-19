@@ -1,4 +1,4 @@
-package com.example.onepice.lession1.data
+package com.example.onepice.lession1.vo
 
 /**
  * Created by onepice on 2018-12-14

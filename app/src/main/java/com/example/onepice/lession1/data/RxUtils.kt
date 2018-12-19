@@ -15,7 +15,7 @@ import rx.schedulers.Schedulers
  */
 object RxUtils {
 
-    fun <T> runRx(observable: Observable<ApiResult<T>>, subscriber: Subscriber<T>): Subscription =
+    private fun <T> runRx(observable: Observable<ApiResult<T>>, subscriber: Subscriber<T>): Subscription =
         observable
             .flatMap(object : Func1<ApiResult<T>, Observable<T>> {
                 override fun call(t: ApiResult<T>?): Observable<T> {

@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import com.example.onepice.lession1.data.CallBack
-import com.example.onepice.lession1.data.EosTransferDetailsVo
+import com.example.onepice.lession1.vo.EosTransferDetailsVo
 import com.example.onepice.lession1.data.RetrofitManager.getContractTrxInfo
+import com.example.onepice.lession1.data.RetrofitManager.getEosAccountInfo
+import com.example.onepice.lession1.vo.EosAccountInfoVo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.regex.Pattern
 
@@ -48,15 +50,28 @@ class MainActivity : AppCompatActivity() {
              */
     fun requestNetWork(eosAccountName: String) {
 
-//获取该账户详情
-        getContractTrxInfo(eosAccountName, 1, object :
-            CallBack<EosTransferDetailsVo> {
-            override fun onSuccess(data: EosTransferDetailsVo) {
-                textviewx.text = data.trace_list.get(0).sender
-            }
+//        //获取该账户详情
+//        getContractTrxInfo(eosAccountName, 1, object :
+//            CallBack<EosTransferDetailsVo> {
+//            override fun onSuccess(data: EosTransferDetailsVo) {
+//                textviewx.text = data.trace_list.get(0).sender
+//            }
+//
+//            override fun onFail(throwable: Throwable) {
+//
+//            }
+//
+//        })
+
+
+        getEosAccountInfo(eosAccountName, object : CallBack<EosAccountInfoVo> {
 
             override fun onFail(throwable: Throwable) {
 
+            }
+
+            override fun onSuccess(data: EosAccountInfoVo) {
+                textviewx.text = data.create_timestamp
             }
 
         })

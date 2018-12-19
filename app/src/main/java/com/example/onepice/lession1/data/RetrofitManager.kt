@@ -1,6 +1,8 @@
 package com.example.onepice.lession1.data
 
 import com.example.onepice.lession1.BuildConfig
+import com.example.onepice.lession1.vo.EosAccountInfoVo
+import com.example.onepice.lession1.vo.EosTransferDetailsVo
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -57,5 +59,15 @@ object RetrofitManager {
             mRetrofit.create(IApiServer::class.java).getContractTrxInfo(accountName, page), callBack
         )
     }
+
+    /**
+     * 查询账号详情
+     */
+    fun getEosAccountInfo(accountName: String, callBack: CallBack<EosAccountInfoVo>) {
+        RxUtils.runRxLambda(
+            mRetrofit.create(IApiServer::class.java).getAccountInfo(accountName), callBack
+        )
+    }
+
 
 }
