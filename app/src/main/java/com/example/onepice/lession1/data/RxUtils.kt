@@ -5,6 +5,7 @@ import rx.Observable
 import rx.Subscriber
 import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
+import rx.functions.Func1
 import rx.schedulers.Schedulers
 
 /**
@@ -14,15 +15,25 @@ import rx.schedulers.Schedulers
  */
 object RxUtils {
 
-    fun <T> runRx(observable: Observable<T>, subscriber: Subscriber<T>): Subscription =
+    fun <T> runRx(observable: Observable<ApiResult<T>>, subscriber: Subscriber<T>): Subscription =
         observable
+            .flatMap(object : Func1<ApiResult<T>, Observable<T>> {
+                override fun call(t: ApiResult<T>?): Observable<T> {
+                    if (t!!.isResultOk()) {
+                        return Observable.just(t.data)
+                    } else {
+                        return Observable.error(RxBaseThrowAble(t.errno, t.errmsg))
+                    }
+                }
+
+            })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(subscriber)
 
 
     fun <T> runRxLambda(
-        observable: Observable<T>,
+        observable: Observable<ApiResult<T>>,
         callBack: CallBack<T>,
         completed: () -> Unit = { Log.e("completed", "completed") }
     ) {
@@ -41,6 +52,4 @@ object RxUtils {
 
         })
     }
-
-
 }

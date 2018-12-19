@@ -25,5 +25,8 @@ interface IApiServer {
         @Query("action_name") action_name: String = "hi",
         @Query("apikey") apikey: String = "bf212183176d599c77b91873f81c6b6f",
         @Query("size") size: Int = 10
-    ): Observable<EosTransferDetailsVo>
+    ): Observable<ApiResult<EosTransferDetailsVo>>
+
+
 }
+

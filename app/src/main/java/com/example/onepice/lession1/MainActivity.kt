@@ -48,11 +48,11 @@ class MainActivity : AppCompatActivity() {
              */
     fun requestNetWork(eosAccountName: String) {
 
-        //获取该账户详情
+//获取该账户详情
         getContractTrxInfo(eosAccountName, 1, object :
             CallBack<EosTransferDetailsVo> {
             override fun onSuccess(data: EosTransferDetailsVo) {
-                textviewx.text = data.data.trace_list.get(0).sender
+                textviewx.text = data.trace_list.get(0).sender
             }
 
             override fun onFail(throwable: Throwable) {
@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
     }
 
 
